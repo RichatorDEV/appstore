@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App Store - Réplica</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f7;
+            color: #1d1d1f;
+        }
+
+        /* Barra de navegación superior */
+        .navbar {
+            background-color: #fff;
+            border-bottom: 1px solid #d2d2d7;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar .logo {
+            font-size: 24px;
+            font-weight: 600;
+            color: #0071e3;
+        }
+
+        .navbar input {
+            width: 50%;
+            padding: 8px 16px;
+            border: 1px solid #d2d2d7;
+            border-radius: 20px;
+            background-color: #f5f5f7;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .navbar .profile {
+            width: 32px;
+            height: 32px;
+            background-color: #d2d2d7;
+            border-radius: 50%;
+        }
+
+        /* Contenedor principal */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Sección destacada */
+        .hero {
+            background: linear-gradient(135deg, #0071e3, #00c4b4);
+            border-radius: 20px;
+            padding: 40px;
+            color: #fff;
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .hero-text h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .hero-text p {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+
+        .hero img {
+            width: 200px;
+            border-radius: 20px;
+        }
+
+        /* Sección de aplicaciones */
+        .section-title {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .app-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .app-card {
+            background-color: #fff;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+
+        .app-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .app-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .app-card-info {
+            padding: 15px;
+        }
+
+        .app-card-info h3 {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .app-card-info p {
+            font-size: 14px;
+            color: #6e6e73;
+            margin-bottom: 10px;
+        }
+
+        .app-card-info button {
+            background-color: #0071e3;
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            padding: 8px 16px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #6e6e73;
+            font-size: 14px;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero img {
+                margin-top: 20px;
+            }
+
+            .navbar input {
+                width: 80%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Barra de navegación -->
+    <nav class="navbar">
+        <div class="logo">App Store</div>
+        <input type="text" placeholder="Buscar apps">
+        <div class="profile"></div>
+    </nav>
+
+    <!-- Contenedor principal -->
+    <div class="container">
+        <!-- Sección destacada -->
+        <div class="hero">
+            <div class="hero-text">
+                <h1>App del Día</h1>
+                <p>Descubre esta increíble aplicación que transformará tu día.</p>
+            </div>
+            <img src="https://via.placeholder.com/200" alt="App destacada">
+        </div>
+
+        <!-- Sección de aplicaciones -->
+        <h2 class="section-title">Recomendadas para Ti</h2>
+        <div class="app-grid">
+            <div class="app-card">
+                <img src="https://via.placeholder.com/250x150" alt="App 1">
+                <div class="app-card-info">
+                    <h3>App Ejemplo 1</h3>
+                    <p>Una app para mejorar tu productividad.</p>
+                    <button>Obtener</button>
+                </div>
+            </div>
+            <div class="app-card">
+                <img src="https://via.placeholder.com/250x150" alt="App 2">
+                <div class="app-card-info">
+                    <h3>App Ejemplo 2</h3>
+                    <p>Juega y diviértete sin límites.</p>
+                    <button>Obtener</button>
+                </div>
+            </div>
+            <div class="app-card">
+                <img src="https://via.placeholder.com/250x150" alt="App 3">
+                <div class="app-card-info">
+                    <h3>App Ejemplo 3</h3>
+                    <p>Edita fotos como profesional.</p>
+                    <button>Obtener</button>
+                </div>
+            </div>
+            <div class="app-card">
+                <img src="https://via.placeholder.com/250x150" alt="App 4">
+                <div class="app-card-info">
+                    <h3>App Ejemplo 4</h3>
+                    <p>Aprende algo nuevo cada día.</p>
+                    <button>Obtener</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 App Store Réplica. Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html>
