@@ -570,9 +570,9 @@
     <script>
         let token = localStorage.getItem('token');
         let apps = [];
-        const BACKEND_URL = 'http://localhost:3000/api'; // Replace with Railway URL after deployment
+        const BACKEND_URL = 'https://storebackend-production-f4f7.up.railway.app/api';
 
-        // Initialize app
+        // Inicializar app
         document.addEventListener('DOMContentLoaded', () => {
             fetchApps();
             updateMenu();
@@ -643,10 +643,10 @@
                         alert('Inicio de sesión exitoso.');
                         closeModal('loginModal');
                     } else {
-                        alert(data.error);
+                        alert(data.error || 'Error al iniciar sesión.');
                     }
                 } catch (err) {
-                    alert('Error al iniciar sesión.');
+                    alert('Error de conexión con el servidor.');
                 }
             }
         }
@@ -699,10 +699,12 @@
                         alert('Cuenta creada exitosamente.');
                         closeModal('signupModal');
                     } else {
-                        alert(data.error);
+                        document.getElementById('signup-email-error').textContent = data.error || 'Error al crear cuenta.';
+                        document.getElementById('signup-email-error').style.display = 'block';
+                        document.getElementById('signup-email').classList.add('error');
                     }
                 } catch (err) {
-                    alert('Error al crear cuenta.');
+                    alert('Error de conexión con el servidor.');
                 }
             }
         }
@@ -769,10 +771,10 @@
                         closeModal('uploadModal');
                         fetchApps();
                     } else {
-                        alert(data.error);
+                        alert(data.error || 'Error al subir la aplicación.');
                     }
                 } catch (err) {
-                    alert('Error al subir la aplicación.');
+                    alert('Error de conexión con el servidor.');
                 }
             }
         }
@@ -816,11 +818,13 @@
         async function fetchApps() {
             try {
                 const response = await fetch(`${BACKEND_URL}/apps`);
+                if (!response.ok) throw new Error('Error al obtener apps');
                 apps = await response.json();
                 renderApps();
                 renderHero();
             } catch (err) {
                 console.error('Error fetching apps:', err);
+                alert('No se pudieron cargar las aplicaciones.');
             }
         }
 
@@ -828,7 +832,7 @@
             const appGrid = document.getElementById('appGrid');
             appGrid.innerHTML = '';
 
-            // Select 3 recommended apps based on date
+            // Seleccionar 3 apps recomendadas según el día
             const today = new Date();
             const dayIndex = today.getDate() % apps.length;
             const recommended = [];
@@ -851,7 +855,7 @@
                 appGrid.appendChild(div);
             });
 
-            // Update search
+            // Actualizar búsqueda
             document.getElementById('searchInput').addEventListener('input', function() {
                 const query = this.value.toLowerCase();
                 const appGrid = document.getElementById('appGrid');
@@ -878,7 +882,7 @@
                 });
 
                 noResults.style.display = hasResults ? 'none' : 'block';
-            });
+            }, { once: true });
         }
 
         function renderHero() {
