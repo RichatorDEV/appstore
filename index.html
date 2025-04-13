@@ -341,6 +341,11 @@
             font-size: 14px;
             font-weight: 500;
             cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .app-card-info button:hover {
+            background-color: #005bb5;
         }
 
         .no-results {
@@ -832,7 +837,6 @@
                 renderHero();
             } catch (err) {
                 console.error('Error fetching apps:', err);
-                // Solo mostrar error si realmente falla
                 if (!apps.length) {
                     document.getElementById('noResults').style.display = 'block';
                 }
@@ -864,7 +868,11 @@
                             <div class="app-card-info">
                                 <h3>${app.name}</h3>
                                 <p>${app.description}</p>
-                                <button ${app.name.toLowerCase().includes('spotify') ? 'onclick="showMusicBar()"' : ''}>Obtener</button>
+                                <button onclick="${
+                                    app.name.toLowerCase().includes('spotify') 
+                                    ? 'showMusicBar()' 
+                                    : `window.open('${app.link}', '_blank')`
+                                }">Obtener</button>
                             </div>
                         `;
                         appGrid.appendChild(div);
@@ -890,7 +898,11 @@
                         <div class="app-card-info">
                             <h3>${app.name}</h3>
                             <p>${app.description}</p>
-                            <button ${app.name.toLowerCase().includes('spotify') ? 'onclick="showMusicBar()"' : ''}>Obtener</button>
+                            <button onclick="${
+                                app.name.toLowerCase().includes('spotify') 
+                                ? 'showMusicBar()' 
+                                : `window.open('${app.link}', '_blank')`
+                            }">Obtener</button>
                         </div>
                     `;
                     appGrid.appendChild(div);
