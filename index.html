@@ -194,7 +194,7 @@
             display: none;
         }
 
-        .modal-content button {
+        .modal-content button[type="submit"] {
             background-color: #0071e3;
             color: #fff;
             border: none;
@@ -207,19 +207,25 @@
             transition: background-color 0.2s;
         }
 
-        .modal-content button:hover {
+        .modal-content button[type="submit"]:hover {
             background-color: #005bb5;
         }
 
         .modal-content .close {
             position: absolute;
             top: 12px;
-            right: 16px;
-            font-size: 24px;
+            right: 12px;
+            font-size: 18px;
+            font-weight: 400;
             cursor: pointer;
             background: none;
             border: none;
             color: #6e6e73;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .modal-content .close:hover {
@@ -537,16 +543,16 @@
                 <h1 id="hero-title">App del Día</h1>
                 <p id="hero-description"></p>
             </div>
-            <img id "hero-image" src="" alt="App del Día">
+            <img id="hero-image" src="" alt="App del Día">
         </div>
 
         <h2 class="section-title">Recomendadas para Ti</h2>
         <div class="app-grid" id="appGrid"></div>
-        <div class="no-results" id="noResults">No se encontraron apps.</div>
+        <div class="no-results" id="noResults">No hay aplicaciones subidas aún.</div>
     </div>
 
     <div class="music-bar" id="musicBar">
-        <img src="https://via.placeholder.com/40?text=Spotify" alt="Song Cover">
+        <img src="https://via.placeholder.com/40?text=Music" alt="Song Cover">
         <div class="music-info">
             <h4>Sample Song</h4>
             <p>Sample Artist</p>
@@ -818,13 +824,18 @@
         async function fetchApps() {
             try {
                 const response = await fetch(`${BACKEND_URL}/apps`);
-                if (!response.ok) throw new Error('Error al obtener apps');
+                if (!response.ok) {
+                    throw new Error('Error al obtener apps');
+                }
                 apps = await response.json();
                 renderApps();
                 renderHero();
             } catch (err) {
                 console.error('Error fetching apps:', err);
-                alert('No se pudieron cargar las aplicaciones.');
+                // Solo mostrar error si realmente falla
+                if (!apps.length) {
+                    document.getElementById('noResults').style.display = 'block';
+                }
             }
         }
 
@@ -834,6 +845,11 @@
             const query = document.getElementById('searchInput').value.toLowerCase();
             appGrid.innerHTML = '';
             noResults.style.display = 'none';
+
+            if (apps.length === 0) {
+                noResults.style.display = 'block';
+                return;
+            }
 
             if (query) {
                 // Mostrar resultados de búsqueda
@@ -848,7 +864,7 @@
                             <div class="app-card-info">
                                 <h3>${app.name}</h3>
                                 <p>${app.description}</p>
-                                <button ${app.name === 'Spotify' ? 'onclick="showMusicBar()"' : ''}>Obtener</button>
+                                <button ${app.name.toLowerCase().includes('spotify') ? 'onclick="showMusicBar()"' : ''}>Obtener</button>
                             </div>
                         `;
                         appGrid.appendChild(div);
@@ -857,9 +873,9 @@
                 });
                 noResults.style.display = hasResults ? 'none' : 'block';
             } else {
-                // Mostrar 12 apps recomendadas (3 filas de 4)
+                // Mostrar hasta 12 apps recomendadas
                 const today = new Date();
-                const dayIndex = today.getDate() % apps.length;
+                const dayIndex = today.getDate() % Math.max(1, apps.length);
                 const recommended = [];
                 for (let i = 0; i < 12 && i < apps.length; i++) {
                     recommended.push(apps[(dayIndex + i) % apps.length]);
@@ -874,11 +890,15 @@
                         <div class="app-card-info">
                             <h3>${app.name}</h3>
                             <p>${app.description}</p>
-                            <button ${app.name === 'Spotify' ? 'onclick="showMusicBar()"' : ''}>Obtener</button>
+                            <button ${app.name.toLowerCase().includes('spotify') ? 'onclick="showMusicBar()"' : ''}>Obtener</button>
                         </div>
                     `;
                     appGrid.appendChild(div);
                 });
+
+                if (recommended.length === 0) {
+                    noResults.style.display = 'block';
+                }
             }
 
             // Actualizar búsqueda
@@ -895,9 +915,17 @@
             const heroDescription = document.getElementById('hero-description');
             const heroImage = document.getElementById('hero-image');
 
+            if (apps.length === 0) {
+                heroTitle.textContent = 'App del Día';
+                heroDescription.textContent = 'No hay aplicaciones subidas aún.';
+                heroImage.src = 'https://via.placeholder.com/200x150?text=No+App';
+                heroImage.alt = 'No App';
+                return;
+            }
+
             const today = new Date();
             const dayIndex = today.getDate() % apps.length;
-            const appOfDay = apps[dayIndex] || { name: 'No App', description: '', image: '' };
+            const appOfDay = apps[dayIndex];
 
             heroTitle.textContent = `App del Día: ${appOfDay.name}`;
             heroDescription.textContent = appOfDay.description;
