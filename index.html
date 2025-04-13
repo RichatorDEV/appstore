@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>App Store - Réplica con UV ID</title>
+    <title>UV Store - Réplica con UV ID</title>
     <style>
         * {
             margin: 0;
@@ -317,6 +317,10 @@
 
         .app-card-info {
             padding: 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 140px; /* Asegura espacio suficiente */
         }
 
         .app-card-info h3 {
@@ -329,6 +333,7 @@
             font-size: 14px;
             color: #6e6e73;
             margin-bottom: 12px;
+            flex-grow: 1; /* Empuja el botón hacia abajo */
         }
 
         .app-card-info button {
@@ -343,7 +348,7 @@
             transition: background-color 0.2s;
             width: 100%;
             display: block;
-            margin: 0 auto;
+            margin: 0 auto 8px; /* Margen inferior pequeño */
         }
 
         .app-card-info button:hover {
@@ -383,12 +388,16 @@
             .modal-content {
                 margin: 0 16px;
             }
+
+            .app-card-info {
+                min-height: 120px; /* Ajuste para pantallas pequeñas */
+            }
         }
     </style>
 </head>
 <body>
     <nav class="navbar">
-        <div class="logo">App Store</div>
+        <div class="logo">UV Store</div>
         <input type="text" id="searchInput" placeholder="Buscar apps">
         <div class="profile-container">
             <div class="profile" onclick="toggleMenu()">
@@ -479,7 +488,7 @@
     </div>
 
     <footer>
-        <p>© 2025 App Store Réplica. Todos los derechos reservados.</p>
+        <p>© 2025 UV Store Réplica. Todos los derechos reservados.</p>
     </footer>
 
     <script>
