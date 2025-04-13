@@ -162,7 +162,7 @@
             color: #1d1d1f;
         }
 
-        .modal-content input {
+        .modal-content input, .modal-content textarea {
             width: 100%;
             padding: 12px;
             margin-bottom: 16px;
@@ -174,11 +174,16 @@
             transition: border-color 0.2s;
         }
 
-        .modal-content input:focus {
+        .modal-content textarea {
+            height: 100px;
+            resize: vertical;
+        }
+
+        .modal-content input:focus, .modal-content textarea:focus {
             border-color: #0071e3;
         }
 
-        .modal-content input.error {
+        .modal-content input.error, .modal-content textarea.error {
             border-color: #e30000;
         }
 
@@ -459,8 +464,10 @@
                 </svg>
             </div>
             <div class="profile-menu" id="profileMenu">
-                <a href="#" onclick="openModal('loginModal')">Iniciar sesión con UV ID</a>
-                <a href="#" onclick="openModal('signupModal')">Crear UV ID</a>
+                <a href="#" id="loginLink" onclick="openModal('loginModal')">Iniciar sesión con UV ID</a>
+                <a href="#" id="signupLink" onclick="openModal('signupModal')">Crear UV ID</a>
+                <a href="#" id="uploadLink" onclick="openModal('uploadModal')" style="display: none;">Subir Aplicación</a>
+                <a href="#" id="logoutLink" onclick="logout()" style="display: none;">Cerrar Sesión</a>
             </div>
         </div>
     </nav>
@@ -502,114 +509,39 @@
         </div>
     </div>
 
+    <div class="modal" id="uploadModal">
+        <div class="modal-content">
+            <button class="close" onclick="closeModal('uploadModal')">×</button>
+            <h2>Subir Aplicación</h2>
+            <form id="uploadForm" onsubmit="uploadApp(event)">
+                <label for="app-name">Nombre</label>
+                <input type="text" id="app-name" placeholder="Nombre de la app" required>
+                <div class="error-message" id="app-name-error">El nombre es obligatorio.</div>
+                <label for="app-description">Descripción</label>
+                <textarea id="app-description" placeholder="Descripción de la app" required></textarea>
+                <div class="error-message" id="app-description-error">La descripción es obligatoria.</div>
+                <label for="app-image">URL de la Imagen</label>
+                <input type="url" id="app-image" placeholder="https://example.com/image.jpg" required>
+                <div class="error-message" id="app-image-error">Por favor, introduce una URL válida.</div>
+                <label for="app-link">Enlace</label>
+                <input type="url" id="app-link" placeholder="https://example.com" required>
+                <div class="error-message" id="app-link-error">Por favor, introduce una URL válida.</div>
+                <button type="submit">Subir</button>
+            </form>
+        </div>
+    </div>
+
     <div class="container">
-        <div class="hero">
+        <div class="hero" id="heroSection">
             <div class="hero-text">
-                <h1>App del Día: Spotify</h1>
-                <p>Escucha millones de canciones y podcasts en cualquier momento.</p>
+                <h1 id="hero-title">App del Día</h1>
+                <p id="hero-description"></p>
             </div>
-            <img src="https://via.placeholder.com/200?text=Spotify" alt="Spotify">
+            <img id="hero-image" src="" alt="App del Día">
         </div>
 
         <h2 class="section-title">Recomendadas para Ti</h2>
-        <div class="app-grid" id="appGrid">
-            <div class="app-card" data-name="Notion">
-                <img src="https://via.placeholder.com/250x150?text=Notion" alt="Notion">
-                <div class="app-card-info">
-                    <h3>Notion</h3>
-                    <p>Toma notas, gestiona proyectos y colabora en equipo.</p>
-                    <button>Obtener</button>
-                </div>
-            </div>
-            <div class="app-card" data-name="Procreate">
-                <img src="https://via.placeholder.com/250x150?text=Procreate" alt="Procreate">
-                <div class="app-card-info">
-                    <h3>Procreate</h3>
-                    <p>Crea arte digital con herramientas profesionales.</p>
-                    <button>Obtener</button>
-                </div>
-            </div>
-            <div class="app-card" data-name="Duolingo">
-                <img src="https://via.placeholder.com/250x150?text=Duolingo" alt="Duolingo">
-                <div class="app-card-info">
-                    <h3>Duolingo</h3>
-                    <p>Aprende idiomas de forma divertida y gratuita.</p>
-                    <button>Obtener</button>
-                </div>
-            </div>
-            <div class="app-card" data-name="Brawl Stars">
-                <img src="https://via.placeholder.com/250x150?text=Brawl+Stars" alt="Brawl Stars">
-                <div class="app-card-info">
-                    <h3>Brawl Stars</h3>
-                    <p>Frenéticas batallas 3v3 y battle royale para móviles.</p>
-                    <button>Obtener</button>
-                </div>
-            </div>
-            <div class="app-card" data-name="Spotify">
-                <img src="https://via.placeholder.com/250x150?text=Spotify" alt="Spotify">
-                <div class="app-card-info">
-                    <h3>Spotify</h3>
-                    <p>Escucha millones de canciones y podcasts.</p>
-                    <button onclick="showMusicBar()">Obtener</button>
-                </div>
-            </div>
-            <div class="app-card" data-name="Todoist">
-                <img src="https://via.placeholder.com/250x150?text=Todoist" alt="Todoist">
-                <div class="app-card-info">
-                    <h3>Todoist</h3>
-                    <p>Organiza tus tareas y aumenta tu productividad.</p>
-                    <button>Obtener</button>
-                </div>
-            </div>
-            <div class="app-card" data-name="Photoshop Express">
-                <img src="https://via.placeholder.com/250x150?text=Photoshop+Express" alt="Photoshop Express">
-                <div class="app-card-info">
-                    <h3>Photoshop Express</h3>
-                    <p>Edita fotos con herramientas fáciles y potentes.</p>
-                    <button>Obtener</button>
-                </div>
-            </div>
-            <div class="app-card" data-name="GoodNotes">
-                <img src="https://via.placeholder.com/250x150?text=GoodNotes" alt="GoodNotes">
-                <div class="app-card-info">
-                    <h3>GoodNotes</h3>
-                    <p>Toma notas digitales con estilo y precisión.</p>
-                    <button>Obtener</button>
-                </div>
-            </div>
-            <div class="app-card" data-name="Clash of Clans">
-                <img src="https://via.placeholder.com/250x150?text=Clash+of+Clans" alt="Clash of Clans">
-                <div class="app-card-info">
-                    <h3>Clash of Clans</h3>
-                    <p>Construye tu aldea y compite en batallas épicas.</p>
-                    <button>Obtener</button>
-                </div>
-            </div>
-            <div class="app-card" data-name="Headspace">
-                <img src="https://via.placeholder.com/250x150?text=Headspace" alt="Headspace">
-                <div class="app-card-info">
-                    <h3>Headspace</h3>
-                    <p>Medita y mejora tu bienestar mental.</p>
-                    <button>Obtener</button>
-                </div>
-            </div>
-            <div class="app-card" data-name="Trello">
-                <img src="https://via.placeholder.com/250x150?text=Trello" alt="Trello">
-                <div class="app-card-info">
-                    <h3>Trello</h3>
-                    <p>Gestiona proyectos con tableros intuitivos.</p>
-                    <button>Obtener</button>
-                </div>
-            </div>
-            <div class="app-card" data-name="Genshin Impact">
-                <img src="https://via.placeholder.com/250x150?text=Genshin+Impact" alt="Genshin Impact">
-                <div class="app-card-info">
-                    <h3>Genshin Impact</h3>
-                    <p>Explora un mundo abierto lleno de aventuras.</p>
-                    <button>Obtener</button>
-                </div>
-            </div>
-        </div>
+        <div class="app-grid" id="appGrid"></div>
         <div class="no-results" id="noResults">No se encontraron apps.</div>
     </div>
 
@@ -636,6 +568,16 @@
     </footer>
 
     <script>
+        let token = localStorage.getItem('token');
+        let apps = [];
+        const BACKEND_URL = 'http://localhost:3000/api'; // Replace with Railway URL after deployment
+
+        // Initialize app
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchApps();
+            updateMenu();
+        });
+
         function toggleMenu() {
             const menu = document.getElementById('profileMenu');
             menu.classList.toggle('active');
@@ -660,7 +602,7 @@
             }
         });
 
-        function validateLogin(event) {
+        async function validateLogin(event) {
             event.preventDefault();
             const email = document.getElementById('login-email').value;
             const password = document.getElementById('login-password').value;
@@ -687,12 +629,29 @@
             }
 
             if (valid) {
-                alert('Inicio de sesión exitoso (simulado).');
-                closeModal('loginModal');
+                try {
+                    const response = await fetch(`${BACKEND_URL}/login`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email, password }),
+                    });
+                    const data = await response.json();
+                    if (data.token) {
+                        token = data.token;
+                        localStorage.setItem('token', token);
+                        updateMenu();
+                        alert('Inicio de sesión exitoso.');
+                        closeModal('loginModal');
+                    } else {
+                        alert(data.error);
+                    }
+                } catch (err) {
+                    alert('Error al iniciar sesión.');
+                }
             }
         }
 
-        function validateSignup(event) {
+        async function validateSignup(event) {
             event.preventDefault();
             const name = document.getElementById('signup-name').value;
             const email = document.getElementById('signup-email').value;
@@ -729,18 +688,212 @@
             }
 
             if (valid) {
-                alert('Cuenta creada exitosamente (simulada).');
-                closeModal('signupModal');
+                try {
+                    const response = await fetch(`${BACKEND_URL}/signup`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ name, email, password }),
+                    });
+                    const data = await response.json();
+                    if (response.ok) {
+                        alert('Cuenta creada exitosamente.');
+                        closeModal('signupModal');
+                    } else {
+                        alert(data.error);
+                    }
+                } catch (err) {
+                    alert('Error al crear cuenta.');
+                }
+            }
+        }
+
+        async function uploadApp(event) {
+            event.preventDefault();
+            const name = document.getElementById('app-name').value;
+            const description = document.getElementById('app-description').value;
+            const image = document.getElementById('app-image').value;
+            const link = document.getElementById('app-link').value;
+            const nameError = document.getElementById('app-name-error');
+            const descriptionError = document.getElementById('app-description-error');
+            const imageError = document.getElementById('app-image-error');
+            const linkError = document.getElementById('app-link-error');
+            let valid = true;
+
+            nameError.style.display = 'none';
+            descriptionError.style.display = 'none';
+            imageError.style.display = 'none';
+            linkError.style.display = 'none';
+            document.getElementById('app-name').classList.remove('error');
+            document.getElementById('app-description').classList.remove('error');
+            document.getElementById('app-image').classList.remove('error');
+            document.getElementById('app-link').classList.remove('error');
+
+            if (name.trim() === '') {
+                nameError.style.display = 'block';
+                document.getElementById('app-name').classList.add('error');
+                valid = false;
+            }
+
+            if (description.trim() === '') {
+                descriptionError.style.display = 'block';
+                document.getElementById('app-description').classList.add('error');
+                valid = false;
+            }
+
+            const urlRegex = /^(https?:\/\/[^\s$.?#].[^\s]*)$/;
+            if (!urlRegex.test(image)) {
+                imageError.style.display = 'block';
+                document.getElementById('app-image').classList.add('error');
+                valid = false;
+            }
+
+            if (!urlRegex.test(link)) {
+                linkError.style.display = 'block';
+                document.getElementById('app-link').classList.add('error');
+                valid = false;
+            }
+
+            if (valid) {
+                try {
+                    const response = await fetch(`${BACKEND_URL}/apps`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`,
+                        },
+                        body: JSON.stringify({ name, description, image, link }),
+                    });
+                    const data = await response.json();
+                    if (response.ok) {
+                        alert('Aplicación subida exitosamente.');
+                        closeModal('uploadModal');
+                        fetchApps();
+                    } else {
+                        alert(data.error);
+                    }
+                } catch (err) {
+                    alert('Error al subir la aplicación.');
+                }
             }
         }
 
         function resetForm(modalId) {
-            const form = modalId === 'loginModal' ? document.getElementById('loginForm') : document.getElementById('signupForm');
+            const form = document.getElementById(`${modalId.replace('Modal', 'Form')}`);
             form.reset();
             const errors = form.querySelectorAll('.error-message');
-            const inputs = form.querySelectorAll('input');
+            const inputs = form.querySelectorAll('input, textarea');
             errors.forEach(error => error.style.display = 'none');
             inputs.forEach(input => input.classList.remove('error'));
+        }
+
+        function updateMenu() {
+            const loginLink = document.getElementById('loginLink');
+            const signupLink = document.getElementById('signupLink');
+            const uploadLink = document.getElementById('uploadLink');
+            const logoutLink = document.getElementById('logoutLink');
+
+            if (token) {
+                loginLink.style.display = 'none';
+                signupLink.style.display = 'none';
+                uploadLink.style.display = 'block';
+                logoutLink.style.display = 'block';
+            } else {
+                loginLink.style.display = 'block';
+                signupLink.style.display = 'block';
+                uploadLink.style.display = 'none';
+                logoutLink.style.display = 'none';
+            }
+        }
+
+        function logout() {
+            token = null;
+            localStorage.removeItem('token');
+            updateMenu();
+            toggleMenu();
+            alert('Sesión cerrada.');
+        }
+
+        async function fetchApps() {
+            try {
+                const response = await fetch(`${BACKEND_URL}/apps`);
+                apps = await response.json();
+                renderApps();
+                renderHero();
+            } catch (err) {
+                console.error('Error fetching apps:', err);
+            }
+        }
+
+        function renderApps() {
+            const appGrid = document.getElementById('appGrid');
+            appGrid.innerHTML = '';
+
+            // Select 3 recommended apps based on date
+            const today = new Date();
+            const dayIndex = today.getDate() % apps.length;
+            const recommended = [];
+            for (let i = 0; i < 3 && i < apps.length; i++) {
+                recommended.push(apps[(dayIndex + i) % apps.length]);
+            }
+
+            recommended.forEach(app => {
+                const div = document.createElement('div');
+                div.className = 'app-card';
+                div.setAttribute('data-name', app.name);
+                div.innerHTML = `
+                    <img src="${app.image}" alt="${app.name}">
+                    <div class="app-card-info">
+                        <h3>${app.name}</h3>
+                        <p>${app.description}</p>
+                        <button ${app.name === 'Spotify' ? 'onclick="showMusicBar()"' : ''}>Obtener</button>
+                    </div>
+                `;
+                appGrid.appendChild(div);
+            });
+
+            // Update search
+            document.getElementById('searchInput').addEventListener('input', function() {
+                const query = this.value.toLowerCase();
+                const appGrid = document.getElementById('appGrid');
+                const noResults = document.getElementById('noResults');
+                appGrid.innerHTML = '';
+                let hasResults = false;
+
+                apps.forEach(app => {
+                    if (app.name.toLowerCase().includes(query)) {
+                        const div = document.createElement('div');
+                        div.className = 'app-card';
+                        div.setAttribute('data-name', app.name);
+                        div.innerHTML = `
+                            <img src="${app.image}" alt="${app.name}">
+                            <div class="app-card-info">
+                                <h3>${app.name}</h3>
+                                <p>${app.description}</p>
+                                <button ${app.name === 'Spotify' ? 'onclick="showMusicBar()"' : ''}>Obtener</button>
+                            </div>
+                        `;
+                        appGrid.appendChild(div);
+                        hasResults = true;
+                    }
+                });
+
+                noResults.style.display = hasResults ? 'none' : 'block';
+            });
+        }
+
+        function renderHero() {
+            const heroTitle = document.getElementById('hero-title');
+            const heroDescription = document.getElementById('hero-description');
+            const heroImage = document.getElementById('hero-image');
+
+            const today = new Date();
+            const dayIndex = today.getDate() % apps.length;
+            const appOfDay = apps[dayIndex] || { name: 'No App', description: '', image: '' };
+
+            heroTitle.textContent = `App del Día: ${appOfDay.name}`;
+            heroDescription.textContent = appOfDay.description;
+            heroImage.src = appOfDay.image;
+            heroImage.alt = appOfDay.name;
         }
 
         let isPlaying = false;
@@ -811,26 +964,6 @@
                 }
             });
         }
-
-        // Barra de búsqueda funcional
-        document.getElementById('searchInput').addEventListener('input', function() {
-            const query = this.value.toLowerCase();
-            const appCards = document.querySelectorAll('.app-card');
-            const noResults = document.getElementById('noResults');
-            let hasResults = false;
-
-            appCards.forEach(card => {
-                const appName = card.getAttribute('data-name').toLowerCase();
-                if (appName.includes(query)) {
-                    card.style.display = 'block';
-                    hasResults = true;
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-
-            noResults.style.display = hasResults ? 'none' : 'block';
-        });
     </script>
 </body>
 </html>
