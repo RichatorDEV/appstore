@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UV Store - Para disfrutar las clases</title>
+    <title>UV Store - Réplica con UV ID</title>
     <style>
         * {
             margin: 0;
@@ -15,6 +15,78 @@
         body {
             background-color: #f5f5f7;
             color: #1d1d1f;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background-color: #fff;
+            border-right: 1px solid #d2d2d7;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            z-index: 99;
+            transform: translateX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar.hidden {
+            transform: translateX(-100%);
+        }
+
+        .sidebar-header {
+            padding: 16px;
+            border-bottom: 1px solid #d2d2d7;
+        }
+
+        .sidebar-header h2 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #0071e3;
+        }
+
+        .sidebar-nav {
+            padding: 16px 0;
+        }
+
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            color: #1d1d1f;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 400;
+            transition: background-color 0.2s;
+        }
+
+        .sidebar-nav a:hover {
+            background-color: #f5f5f7;
+        }
+
+        .sidebar-nav a svg {
+            width: 20px;
+            height: 20px;
+            margin-right: 12px;
+            fill: #6e6e73;
+        }
+
+        .sidebar-nav a:hover svg {
+            fill: #0071e3;
+        }
+
+        /* Main content */
+        .main-content {
+            flex: 1;
+            margin-left: 250px;
+            transition: margin-left 0.3s ease;
+        }
+
+        .main-content.full {
+            margin-left: 0;
         }
 
         .navbar {
@@ -27,6 +99,25 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+        }
+
+        .navbar .menu-toggle {
+            display: none;
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            padding: 6px;
+        }
+
+        .navbar .menu-toggle svg {
+            width: 100%;
+            height: 100%;
+            fill: #1d1d1f;
+            transition: transform 0.3s ease;
+        }
+
+        .navbar .menu-toggle.active svg {
+            transform: rotate(45deg);
         }
 
         .navbar .logo {
@@ -320,7 +411,7 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            min-height: 140px; /* Asegura espacio suficiente */
+            min-height: 140px;
         }
 
         .app-card-info h3 {
@@ -333,7 +424,7 @@
             font-size: 14px;
             color: #6e6e73;
             margin-bottom: 12px;
-            flex-grow: 1; /* Empuja el botón hacia abajo */
+            flex-grow: 1;
         }
 
         .app-card-info button {
@@ -348,7 +439,7 @@
             transition: background-color 0.2s;
             width: 100%;
             display: block;
-            margin: 0 auto 8px; /* Margen inferior pequeño */
+            margin: 0 auto 8px;
         }
 
         .app-card-info button:hover {
@@ -372,6 +463,22 @@
         }
 
         @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.visible {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .navbar .menu-toggle {
+                display: block;
+            }
+
             .hero {
                 flex-direction: column;
                 text-align: center;
@@ -382,7 +489,7 @@
             }
 
             .navbar input {
-                width: 80%;
+                width: 60%;
             }
 
             .modal-content {
@@ -390,106 +497,153 @@
             }
 
             .app-card-info {
-                min-height: 120px; /* Ajuste para pantallas pequeñas */
+                min-height: 120px;
             }
         }
     </style>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="logo">UV Store</div>
-        <input type="text" id="searchInput" placeholder="Buscar apps">
-        <div class="profile-container">
-            <div class="profile" onclick="toggleMenu()">
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2>UV Store</h2>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="#" onclick="showSection('home')">
+                <svg viewBox="0 0 24 24">
+                    <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                </svg>
+                Inicio
+            </a>
+            <a href="#" onclick="showSection('profile')">
                 <svg viewBox="0 0 24 24">
                     <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
                 </svg>
+                Perfil
+            </a>
+            <a href="#" onclick="showSection('my-apps')">
+                <svg viewBox="0 0 24 24">
+                    <path d="M4 8h4V4H4v4zm6 12h4v-4h-4v4zm-6 0h4v-4H4v4zm0-6h4v-4H4v4zm6 0h4v-4h-4v4zm6-10v4h4V4h-4zm-6 4h4V4h-4v4zm6 6h4v-4h-4v4zm0 6h4v-4h-4v4z"/>
+                </svg>
+                Mis Apps
+            </a>
+        </nav>
+    </aside>
+
+    <div class="main-content" id="mainContent">
+        <nav class="navbar">
+            <button class="menu-toggle" id="menuToggle" onclick="toggleSidebar()">
+                <svg viewBox="0 0 24 24">
+                    <path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/>
+                </svg>
+            </button>
+            <div class="logo">UV Store</div>
+            <input type="text" id="searchInput" placeholder="Buscar apps">
+            <div class="profile-container">
+                <div class="profile" onclick="toggleMenu()">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                    </svg>
+                </div>
+                <div class="profile-menu" id="profileMenu">
+                    <a href="#" id="loginLink" onclick="openModal('loginModal')">Iniciar sesión con UV ID</a>
+                    <a href="#" id="signupLink" onclick="openModal('signupModal')">Crear UV ID</a>
+                    <a href="#" id="uploadLink" onclick="openModal('uploadModal')" style="display: none;">Subir Aplicación</a>
+                    <a href="#" id="logoutLink" onclick="logout()" style="display: none;">Cerrar Sesión</a>
+                </div>
             </div>
-            <div class="profile-menu" id="profileMenu">
-                <a href="#" id="loginLink" onclick="openModal('loginModal')">Iniciar sesión con UV ID</a>
-                <a href="#" id="signupLink" onclick="openModal('signupModal')">Crear UV ID</a>
-                <a href="#" id="uploadLink" onclick="openModal('uploadModal')" style="display: none;">Subir Aplicación</a>
-                <a href="#" id="logoutLink" onclick="logout()" style="display: none;">Cerrar Sesión</a>
+        </nav>
+
+        <div class="modal" id="loginModal">
+            <div class="modal-content">
+                <button class="close" onclick="closeModal('loginModal')">×</button>
+                <h2>Iniciar sesión con UV ID</h2>
+                <form id="loginForm" onsubmit="validateLogin(event)">
+                    <label for="login-email">Correo electrónico</label>
+                    <input type="email" id="login-email" placeholder="tu@correo.com" required>
+                    <div class="error-message" id="login-email-error">Por favor, introduce un correo válido.</div>
+                    <label for="login-password">Contraseña</label>
+                    <input type="password" id="login-password" placeholder="Contraseña" required>
+                    <div class="error-message" id="login-password-error">La contraseña debe tener al menos 6 caracteres.</div>
+                    <button type="submit">Iniciar sesión</button>
+                    <a href="#" class="extra-link">¿Olvidaste tu contraseña?</a>
+                </form>
             </div>
         </div>
-    </nav>
 
-    <div class="modal" id="loginModal">
-        <div class="modal-content">
-            <button class="close" onclick="closeModal('loginModal')">×</button>
-            <h2>Iniciar sesión con UV ID</h2>
-            <form id="loginForm" onsubmit="validateLogin(event)">
-                <label for="login-email">Correo electrónico</label>
-                <input type="email" id="login-email" placeholder="tu@correo.com" required>
-                <div class="error-message" id="login-email-error">Por favor, introduce un correo válido.</div>
-                <label for="login-password">Contraseña</label>
-                <input type="password" id="login-password" placeholder="Contraseña" required>
-                <div class="error-message" id="login-password-error">La contraseña debe tener al menos 6 caracteres.</div>
-                <button type="submit">Iniciar sesión</button>
-                <a href="#" class="extra-link">¿Olvidaste tu contraseña?</a>
-            </form>
-        </div>
-    </div>
-
-    <div class="modal" id="signupModal">
-        <div class="modal-content">
-            <button class="close" onclick="closeModal('signupModal')">×</button>
-            <h2>Crear UV ID</h2>
-            <form id="signupForm" onsubmit="validateSignup(event)">
-                <label for="signup-name">Nombre</label>
-                <input type="text" id="signup-name" placeholder="Tu nombre" required>
-                <div class="error-message" id="signup-name-error">El nombre es obligatorio.</div>
-                <label for="signup-email">Correo electrónico</label>
-                <input type="email" id="signup-email" placeholder="tu@correo.com" required>
-                <div class="error-message" id="signup-email-error">Por favor, introduce un correo válido.</div>
-                <label for="signup-password">Contraseña</label>
-                <input type="password" id="signup-password" placeholder="Contraseña" required>
-                <div class="error-message" id="signup-password-error">La contraseña debe tener al menos 6 caracteres.</div>
-                <button type="submit">Crear cuenta</button>
-                <p class="terms">Al crear una cuenta, aceptas los <a href="#" class="extra-link">Términos y Condiciones</a>.</p>
-            </form>
-        </div>
-    </div>
-
-    <div class="modal" id="uploadModal">
-        <div class="modal-content">
-            <button class="close" onclick="closeModal('uploadModal')">×</button>
-            <h2>Subir Aplicación</h2>
-            <form id="uploadForm" onsubmit="uploadApp(event)">
-                <label for="app-name">Nombre</label>
-                <input type="text" id="app-name" placeholder="Nombre de la app" required>
-                <div class="error-message" id="app-name-error">El nombre es obligatorio.</div>
-                <label for="app-description">Descripción</label>
-                <textarea id="app-description" placeholder="Descripción de la app" required></textarea>
-                <div class="error-message" id="app-description-error">La descripción es obligatoria.</div>
-                <label for="app-image">URL de la Imagen</label>
-                <input type="url" id="app-image" placeholder="https://example.com/image.jpg" required>
-                <div class="error-message" id="app-image-error">Por favor, introduce una URL válida.</div>
-                <label for="app-link">Enlace</label>
-                <input type="url" id="app-link" placeholder="https://example.com" required>
-                <div class="error-message" id="app-link-error">Por favor, introduce una URL válida.</div>
-                <button type="submit">Subir</button>
-            </form>
-        </div>
-    </div>
-
-    <div class="container">
-        <div class="hero" id="heroSection">
-            <div class="hero-text">
-                <h1 id="hero-title">App del Día</h1>
-                <p id="hero-description"></p>
+        <div class="modal" id="signupModal">
+            <div class="modal-content">
+                <button class="close" onclick="closeModal('signupModal')">×</button>
+                <h2>Crear UV ID</h2>
+                <form id="signupForm" onsubmit="validateSignup(event)">
+                    <label for="signup-name">Nombre</label>
+                    <input type="text" id="signup-name" placeholder="Tu nombre" required>
+                    <div class="error-message" id="signup-name-error">El nombre es obligatorio.</div>
+                    <label for="signup-email">Correo electrónico</label>
+                    <input type="email" id="signup-email" placeholder="tu@correo.com" required>
+                    <div class="error-message" id="signup-email-error">Por favor, introduce un correo válido.</div>
+                    <label for="signup-password">Contraseña</label>
+                    <input type="password" id="signup-password" placeholder="Contraseña" required>
+                    <div class="error-message" id="signup-password-error">La contraseña debe tener al menos 6 caracteres.</div>
+                    <button type="submit">Crear cuenta</button>
+                    <p class="terms">Al crear una cuenta, aceptas los <a href="#" class="extra-link">Términos y Condiciones</a>.</p>
+                </form>
             </div>
-            <img id="hero-image" src="" alt="App del Día">
         </div>
 
-        <h2 class="section-title">Recomendadas para Ti</h2>
-        <div class="app-grid" id="appGrid"></div>
-        <div class="no-results" id="noResults">No hay aplicaciones subidas con ese nombre aún.</div>
-    </div>
+        <div class="modal" id="uploadModal">
+            <div class="modal-content">
+                <button class="close" onclick="closeModal('uploadModal')">×</button>
+                <h2>Subir Aplicación</h2>
+                <form id="uploadForm" onsubmit="uploadApp(event)">
+                    <label for="app-name">Nombre</label>
+                    <input type="text" id="app-name" placeholder="Nombre de la app" required>
+                    <div class="error-message" id="app-name-error">El nombre es obligatorio.</div>
+                    <label for="app-description">Descripción</label>
+                    <textarea id="app-description" placeholder="Descripción de la app" required></textarea>
+                    <div class="error-message" id="app-description-error">La descripción es obligatoria.</div>
+                    <label for="app-image">URL de la Imagen</label>
+                    <input type="url" id="app-image" placeholder="https://example.com/image.jpg" required>
+                    <div class="error-message" id="app-image-error">Por favor, introduce una URL válida.</div>
+                    <label for="app-link">Enlace</label>
+                    <input type="url" id="app-link" placeholder="https://example.com" required>
+                    <div class="error-message" id="app-link-error">Por favor, introduce una URL válida.</div>
+                    <button type="submit">Subir</button>
+                </form>
+            </div>
+        </div>
 
-    <footer>
-        <p>© 2025 UV Store. Todos los derechos reservados.</p>
-    </footer>
+        <div class="container">
+            <div id="home-section">
+                <h2 class="section-title">Bienvenidos a UV Store</h2>
+                <p>UV Store es impulsado por <strong>Unlocked VALLE</strong>, una empresa innovadora dedicada a conectar creadores y usuarios a través de aplicaciones únicas. Nuestra misión es ofrecer una plataforma donde las ideas se transforman en experiencias digitales accesibles para todos.</p>
+            </div>
+            <div id="profile-section" style="display: none;">
+                <h2 class="section-title">Perfil</h2>
+                <p>Administra tu cuenta y preferencias aquí (próximamente).</p>
+            </div>
+            <div id="my-apps-section" style="display: none;">
+                <h2 class="section-title">Mis Apps</h2>
+                <p>Consulta las aplicaciones que has subido (próximamente).</p>
+            </div>
+            <div id="store-section">
+                <div class="hero" id="heroSection">
+                    <div class="hero-text">
+                        <h1 id="hero-title">App del Día</h1>
+                        <p id="hero-description"></p>
+                    </div>
+                    <img id="hero-image" src="" alt="App del Día">
+                </div>
+
+                <h2 class="section-title">Recomendadas para Ti</h2>
+                <div class="app-grid" id="appGrid"></div>
+                <div class="no-results" id="noResults">No hay aplicaciones subidas aún.</div>
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2025 UV Store Réplica. Todos los derechos reservados.</p>
+        </footer>
+    </div>
 
     <script>
         let token = localStorage.getItem('token');
@@ -500,7 +654,54 @@
         document.addEventListener('DOMContentLoaded', () => {
             fetchApps();
             updateMenu();
+            initSidebar();
         });
+
+        function initSidebar() {
+            const isSidebarHidden = localStorage.getItem('sidebarHidden') === 'true';
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('mainContent');
+            const menuToggle = document.getElementById('menuToggle');
+
+            if (isSidebarHidden) {
+                sidebar.classList.add('hidden');
+                mainContent.classList.add('full');
+                menuToggle.classList.remove('active');
+            } else {
+                sidebar.classList.remove('hidden');
+                mainContent.classList.remove('full');
+                menuToggle.classList.add('active');
+            }
+        }
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('mainContent');
+            const menuToggle = document.getElementById('menuToggle');
+            const isHidden = sidebar.classList.toggle('hidden');
+
+            mainContent.classList.toggle('full', isHidden);
+            menuToggle.classList.toggle('active', !isHidden);
+            localStorage.setItem('sidebarHidden', isHidden);
+
+            if (window.innerWidth <= 768) {
+                sidebar.classList.toggle('visible', !isHidden);
+            }
+        }
+
+        function showSection(sectionId) {
+            const sections = ['home', 'profile', 'my-apps', 'store'];
+            sections.forEach(id => {
+                const section = document.getElementById(`${id}-section`);
+                if (section) {
+                    section.style.display = id === sectionId ? 'block' : 'none';
+                }
+            });
+
+            if (window.innerWidth <= 768) {
+                toggleSidebar();
+            }
+        }
 
         function toggleMenu() {
             const menu = document.getElementById('profileMenu');
@@ -680,6 +881,13 @@
             }
 
             if (valid) {
+                if (!token) {
+                    alert('Sesión no iniciada. Por favor, inicia sesión nuevamente.');
+                    openModal('loginModal');
+                    closeModal('uploadModal');
+                    return;
+                }
+
                 try {
                     const response = await fetch(`${BACKEND_URL}/apps`, {
                         method: 'POST',
@@ -689,6 +897,15 @@
                         },
                         body: JSON.stringify({ name, description, image, link }),
                     });
+
+                    if (response.status === 401) {
+                        alert('Sesión expirada o token inválido. Por favor, inicia sesión nuevamente.');
+                        logout();
+                        openModal('loginModal');
+                        closeModal('uploadModal');
+                        return;
+                    }
+
                     const data = await response.json();
                     if (response.ok) {
                         alert('Aplicación subida exitosamente.');
@@ -698,7 +915,7 @@
                         alert(data.error || 'Error al subir la aplicación.');
                     }
                 } catch (err) {
-                    alert('Error de conexión con el servidor.');
+                    alert('Error de conexión con el servidor. Por favor, intenta de nuevo.');
                 }
             }
         }
@@ -769,7 +986,6 @@
             }
 
             if (query) {
-                // Mostrar resultados de búsqueda
                 let hasResults = false;
                 apps.forEach(app => {
                     if (app.name.toLowerCase().includes(query)) {
@@ -790,7 +1006,6 @@
                 });
                 noResults.style.display = hasResults ? 'none' : 'block';
             } else {
-                // Mostrar hasta 12 apps recomendadas
                 const today = new Date();
                 const dayIndex = today.getDate() % Math.max(1, apps.length);
                 const recommended = [];
@@ -818,7 +1033,6 @@
                 }
             }
 
-            // Actualizar búsqueda
             document.getElementById('searchInput').removeEventListener('input', searchHandler);
             document.getElementById('searchInput').addEventListener('input', searchHandler);
         }
