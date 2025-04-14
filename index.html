@@ -37,19 +37,8 @@
             transform: translateX(-100%);
         }
 
-        .sidebar-header {
-            padding: 16px;
-            border-bottom: 1px solid #d2d2d7;
-        }
-
-        .sidebar-header h2 {
-            font-size: 20px;
-            font-weight: 600;
-            color: #0071e3;
-        }
-
         .sidebar-nav {
-            padding: 16px 0;
+            padding: 24px 0;
         }
 
         .sidebar-nav a {
@@ -102,11 +91,16 @@
         }
 
         .navbar .menu-toggle {
-            display: none;
             cursor: pointer;
             width: 32px;
             height: 32px;
             padding: 6px;
+            transition: background-color 0.2s;
+        }
+
+        .navbar .menu-toggle:hover {
+            background-color: #f5f5f7;
+            border-radius: 6px;
         }
 
         .navbar .menu-toggle svg {
@@ -348,6 +342,37 @@
             padding: 24px;
         }
 
+        .home-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .home-content p {
+            font-size: 16px;
+            line-height: 1.5;
+            margin-bottom: 16px;
+            color: #1d1d1f;
+        }
+
+        .home-content .cta-button {
+            display: inline-block;
+            background-color: #0071e3;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.2s;
+            margin-top: 16px;
+        }
+
+        .home-content .cta-button:hover {
+            background-color: #005bb5;
+        }
+
         .hero {
             background: linear-gradient(135deg, #0071e3, #00c4b4);
             border-radius: 18px;
@@ -499,20 +524,27 @@
             .app-card-info {
                 min-height: 120px;
             }
+
+            .home-content {
+                padding: 0 16px;
+            }
         }
     </style>
 </head>
 <body>
     <aside class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <h2>UV Store</h2>
-        </div>
         <nav class="sidebar-nav">
             <a href="#" onclick="showSection('home')">
                 <svg viewBox="0 0 24 24">
                     <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
                 </svg>
                 Inicio
+            </a>
+            <a href="#" onclick="showSection('store')">
+                <svg viewBox="0 0 24 24">
+                    <path d="M4 8h4V4H4v4zm6 12h4v-4h-4v4zm-6 0h4v-4H4v4zm0-6h4v-4H4v4zm6 0h4v-4h-4v4zm6-10v4h4V4h-4zm-6 4h4V4h-4v4zm6 6h4v-4h-4v4zm0 6h4v-4h-4v4z"/>
+                </svg>
+                Apps
             </a>
             <a href="#" onclick="showSection('profile')">
                 <svg viewBox="0 0 24 24">
@@ -614,8 +646,20 @@
 
         <div class="container">
             <div id="home-section">
-                <h2 class="section-title">Bienvenidos a UV Store</h2>
-                <p>UV Store es impulsado por <strong>Unlocked VALLE</strong>, una empresa innovadora dedicada a conectar creadores y usuarios a través de aplicaciones únicas. Nuestra misión es ofrecer una plataforma donde las ideas se transforman en experiencias digitales accesibles para todos.</p>
+                <div class="home-content">
+                    <h2 class="section-title">Bienvenidos a UV Store</h2>
+                    <p>UV Store es la plataforma líder creada por <strong>Unlocked VALLE</strong>, una empresa dedicada a fomentar la creatividad y la innovación en el mundo digital. Desde nuestra fundación, hemos trabajado para construir un espacio donde desarrolladores y usuarios puedan conectarse a través de aplicaciones únicas y originales.</p>
+                    <p><strong>Nuestra misión</strong> es empoderar a los creadores para que compartan sus ideas con el mundo, ofreciendo una tienda de aplicaciones accesible y segura. Con el sistema <strong>UV ID</strong>, garantizamos una experiencia personalizada y protegida para todos nuestros usuarios.</p>
+                    <p>En UV Store, encontrarás aplicaciones que van desde herramientas productivas hasta experiencias de entretenimiento únicas, todas creadas por una comunidad global de desarrolladores. Además, nuestra plataforma permite a cualquiera convertirse en creador: ¡sube tu app y forma parte de nuestra creciente comunidad!</p>
+                    <p><strong>¿Por qué elegir UV Store?</strong></p>
+                    <ul>
+                        <li>Descubre apps exclusivas seleccionadas diariamente.</li>
+                        <li>Interfaz intuitiva y diseño moderno.</li>
+                        <li>Seguridad y privacidad con UV ID.</li>
+                        <li>Oportunidad para que cualquier creador publique su trabajo.</li>
+                    </ul>
+                    <a href="#" onclick="showSection('store')" class="cta-button">Explora Ahora</a>
+                </div>
             </div>
             <div id="profile-section" style="display: none;">
                 <h2 class="section-title">Perfil</h2>
@@ -625,7 +669,7 @@
                 <h2 class="section-title">Mis Apps</h2>
                 <p>Consulta las aplicaciones que has subido (próximamente).</p>
             </div>
-            <div id="store-section">
+            <div id="store-section" style="display: none;">
                 <div class="hero" id="heroSection">
                     <div class="hero-text">
                         <h1 id="hero-title">App del Día</h1>
@@ -655,6 +699,7 @@
             fetchApps();
             updateMenu();
             initSidebar();
+            showSection('home'); // Mostrar Inicio por defecto
         });
 
         function initSidebar() {
@@ -1038,6 +1083,7 @@
         }
 
         function searchHandler() {
+            showSection('store'); // Mostrar tienda al buscar
             renderApps();
         }
 
