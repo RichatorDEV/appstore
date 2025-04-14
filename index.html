@@ -562,7 +562,7 @@
             </button>
             <div class="logo">UV Store</div>
             <div class="profile-pic">
-                <img id="profile-pic-img" src="https://via.placeholder.com/40" alt="Perfil">
+                <img id="profile-pic-img" src="" alt="Perfil">
             </div>
         </nav>
 
@@ -635,9 +635,6 @@
                         <input type="text" id="profile-name-input" placeholder="Tu nombre">
                         <div class="error-message" id="profile-name-error">El nombre es obligatorio.</div>
                         <button onclick="saveProfile()" class="cta-button">Guardar Cambios</button>
-                        <h3>Conexiones</h3>
-                        <button onclick="connectMessages()" class="cta-button">Conectar con UV Messages</button>
-                        <button onclick="connectCall()" class="cta-button">Conectar con UV Call</button>
                         <button onclick="logout()" class="cta-button">Cerrar Sesión</button>
                     </div>
                 </div>
@@ -691,6 +688,12 @@
         let userName = localStorage.getItem('userName') || '';
         let apps = [];
         const BACKEND_URL = 'https://storebackend-production-f4f7.up.railway.app/api';
+
+        const defaultProfileIcon = `data:image/svg+xml;base64,${btoa(`
+            <svg viewBox="0 0 24 24" fill="#6e6e73" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+            </svg>
+        `)}`;
 
         // Inicializar app
         document.addEventListener('DOMContentLoaded', () => {
@@ -893,16 +896,16 @@
         }
 
         function saveProfile() {
-            const pic = document.getElementById('profile-pic-input').value;
             const name = document.getElementById('profile-name-input').value;
-            const picError = document.getElementById('profile-pic-error');
+            const pic = document.getElementById('profile-pic-input').value.trim();
             const nameError = document.getElementById('profile-name-error');
+            const picError = document.getElementById('profile-pic-error');
             let valid = true;
 
-            picError.style.display = 'none';
             nameError.style.display = 'none';
-            document.getElementById('profile-pic-input').classList.remove('error');
+            picError.style.display = 'none';
             document.getElementById('profile-name-input').classList.remove('error');
+            document.getElementById('profile-pic-input').classList.remove('error');
 
             if (name.trim() === '') {
                 nameError.style.display = 'block';
@@ -910,29 +913,39 @@
                 valid = false;
             }
 
-            if (pic && !/^https?:\/\/[^\s$.?#].[^\s]*$/.test(pic)) {
-                picError.style.display = 'block';
-                document.getElementById('profile-pic-input').classList.add('error');
-                valid = false;
+            const profileImg = document.getElementById('profile-pic-img');
+            if (pic) {
+                const urlRegex = /^https?:\/\/[^\s$.?#].[^\s]*$/;
+                if (!urlRegex.test(pic)) {
+                    picError.style.display = 'block';
+                    document.getElementById('profile-pic-input').classList.add('error');
+                    valid = false;
+                } else {
+                    const img = new Image();
+                    img.onload = () => {
+                        localStorage.setItem('profilePic', pic);
+                        profileImg.src = pic;
+                    };
+                    img.onerror = () => {
+                        localStorage.setItem('profilePic', defaultProfileIcon);
+                        profileImg.src = defaultProfileIcon;
+                        picError.textContent = 'No se pudo cargar la imagen.';
+                        picError.style.display = 'block';
+                        document.getElementById('profile-pic-input').classList.add('error');
+                        valid = false;
+                    };
+                    img.src = pic;
+                }
+            } else {
+                localStorage.setItem('profilePic', defaultProfileIcon);
+                profileImg.src = defaultProfileIcon;
             }
 
             if (valid) {
                 userName = name;
                 localStorage.setItem('userName', userName);
-                if (pic) {
-                    localStorage.setItem('profilePic', pic);
-                    document.getElementById('profile-pic-img').src = pic;
-                }
                 alert('Perfil actualizado.');
             }
-        }
-
-        function connectMessages() {
-            alert('Conectado con UV Messages (simulado).');
-        }
-
-        function connectCall() {
-            alert('Conectado con UV Call (simulado).');
         }
 
         async function uploadApp(event) {
@@ -1034,16 +1047,23 @@
             const signupCard = document.getElementById('signupCard');
             const userCard = document.getElementById('userCard');
             const uploadLink = document.getElementById('uploadLink');
-            const profilePic = localStorage.getItem('profilePic') || 'https://via.placeholder.com/40';
 
             if (token) {
                 loginCard.style.display = 'none';
                 signupCard.style.display = 'none';
                 userCard.style.display = 'block';
                 uploadLink.style.display = 'block';
-                document.getElementById('profile-pic-img').src = profilePic;
+                const profilePic = localStorage.getItem('profilePic') || defaultProfileIcon;
+                const profileImg = document.getElementById('profile-pic-img');
+                profileImg.src = defaultProfileIcon; // Inicial
+                if (profilePic !== defaultProfileIcon) {
+                    const img = new Image();
+                    img.onload = () => profileImg.src = profilePic;
+                    img.onerror = () => profileImg.src = defaultProfileIcon;
+                    img.src = profilePic;
+                }
                 document.getElementById('profile-name-input').value = userName;
-                document.getElementById('profile-pic-input').value = profilePic;
+                document.getElementById('profile-pic-input').value = profilePic === defaultProfileIcon ? '' : profilePic;
                 document.querySelector('.profile-pic').classList.add('visible');
                 animateCards();
             } else {
