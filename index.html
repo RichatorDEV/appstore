@@ -99,9 +99,9 @@
             background: none;
             border: none;
             cursor: pointer;
-            width: 32px;
-            height: 32px;
-            padding: 6px;
+            width: 36px;
+            height: 36px;
+            padding: 8px;
             position: relative;
         }
 
@@ -120,7 +120,7 @@
         }
 
         .menu-toggle.active .line1 {
-            transform: translateY(8px) rotate(45deg);
+            transform: translateY(9px) rotate(45deg);
         }
 
         .menu-toggle.active .line2 {
@@ -128,7 +128,7 @@
         }
 
         .menu-toggle.active .line3 {
-            transform: translateY(-8px) rotate(-45deg);
+            transform: translateY(-7px) rotate(-45deg);
         }
 
         .navbar .logo {
@@ -137,215 +137,14 @@
             color: #0071e3;
         }
 
-        .profile-container {
-            position: relative;
-        }
-
-        .profile {
-            width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: opacity 0.2s;
-        }
-
-        .profile:hover {
-            opacity: 0.7;
-        }
-
-        .profile svg {
-            width: 20px;
-            height: 20px;
-            fill: #1d1d1f;
-        }
-
-        .profile-menu {
-            display: none;
-            position: absolute;
-            top: 44px;
-            right: 0;
-            background-color: #fff;
-            border-radius: 12px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-            z-index: 101;
-            opacity: 0;
-            transform: translateY(-10px);
-            transition: opacity 0.2s ease, transform 0.2s ease;
-        }
-
-        .profile-menu.active {
-            display: block;
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .profile-menu a {
-            display: block;
-            padding: 12px 20px;
-            color: #1d1d1f;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 400;
-            line-height: 1.4;
-        }
-
-        .profile-menu a:hover {
-            background-color: #f5f5f7;
-            color: #0071e3;
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 102;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .modal.active {
-            display: flex;
-            opacity: 1;
-        }
-
-        .modal-content {
-            background-color: #fff;
-            border-radius: 18px;
-            padding: 32px;
-            width: 100%;
-            max-width: 420px;
-            position: relative;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-            transform: scale(0.8);
-            transition: transform 0.3s ease;
-        }
-
-        .modal.active .modal-content {
-            transform: scale(1);
-        }
-
-        .modal-content h2 {
-            font-size: 26px;
-            font-weight: 600;
-            margin-bottom: 24px;
-            text-align: center;
-            color: #1d1d1f;
-        }
-
-        .modal-content label {
-            display: block;
-            font-size: 14px;
-            font-weight: 500;
-            margin-bottom: 8px;
-            color: #1d1d1f;
-        }
-
-        .modal-content input, .modal-content textarea {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 16px;
-            border: 1px solid #d2d2d7;
-            border-radius: 10px;
-            font-size: 16px;
-            background-color: #f5f5f7;
-            outline: none;
-            transition: border-color 0.2s;
-        }
-
-        .modal-content textarea {
-            height: 100px;
-            resize: vertical;
-        }
-
-        .modal-content input:focus, .modal-content textarea:focus {
-            border-color: #0071e3;
-        }
-
-        .modal-content input.error, .modal-content textarea.error {
-            border-color: #e30000;
-        }
-
-        .modal-content .error-message {
-            color: #e30000;
-            font-size: 12px;
-            margin-bottom: 16px;
-            display: none;
-        }
-
-        .modal-content button[type="submit"] {
-            background-color: #0071e3;
-            color: #fff;
-            border: none;
-            border-radius: 10px;
-            padding: 14px;
-            width: 100%;
-            font-size: 16px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-
-        .modal-content button[type="submit"]:hover {
-            background-color: #005bb5;
-        }
-
-        .modal-content .close {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            font-size: 18px;
-            font-weight: 400;
-            cursor: pointer;
-            background: none;
-            border: none;
-            color: #6e6e73;
-            width: 24px;
-            height: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal-content .close:hover {
-            color: #1d1d1f;
-        }
-
-        .modal-content .extra-link {
-            display: block;
-            text-align: center;
-            color: #0071e3;
-            font-size: 14px;
-            text-decoration: none;
-            margin-top: 16px;
-        }
-
-        .modal-content .extra-link:hover {
-            text-decoration: underline;
-        }
-
-        .modal-content .terms {
-            font-size: 12px;
-            color: #6e6e73;
-            text-align: center;
-            margin-top: 16px;
-        }
-
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 24px;
         }
 
-        .home-content {
-            max-width: 900px;
+        .home-content, .profile-content, .upload-content {
+            max-width: 600px;
             margin: 0 auto;
             display: flex;
             flex-direction: column;
@@ -384,18 +183,59 @@
             color: #1d1d1f;
         }
 
+        .card label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: #1d1d1f;
+        }
+
+        .card input, .card textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 16px;
+            border: 1px solid #d2d2d7;
+            border-radius: 10px;
+            font-size: 16px;
+            background-color: #f5f5f7;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .card textarea {
+            height: 100px;
+            resize: vertical;
+        }
+
+        .card input:focus, .card textarea:focus {
+            border-color: #0071e3;
+        }
+
+        .card input.error, .card textarea.error {
+            border-color: #e30000;
+        }
+
+        .card .error-message {
+            color: #e30000;
+            font-size: 12px;
+            margin-bottom: 16px;
+            display: none;
+        }
+
         .highlight-card {
             background: linear-gradient(135deg, #f5f5f7, #e5e5e7);
             text-align: center;
         }
 
         .cta-button {
-            display: inline-block;
+            display: block;
+            width: 100%;
             background: linear-gradient(135deg, #0071e3, #00c4b4);
             color: #fff;
             border: none;
             border-radius: 12px;
-            padding: 14px 32px;
+            padding: 14px;
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
@@ -405,7 +245,22 @@
 
         .cta-button:hover {
             background: linear-gradient(135deg, #005bb5, #00a69b);
-            transform: scale(1.05);
+            transform: scale(1.02);
+        }
+
+        .switch-link {
+            text-align: center;
+            margin-top: 16px;
+            font-size: 14px;
+        }
+
+        .switch-link a {
+            color: #0071e3;
+            text-decoration: none;
+        }
+
+        .switch-link a:hover {
+            text-decoration: underline;
         }
 
         .features-list {
@@ -593,15 +448,11 @@
                 margin-top: 20px;
             }
 
-            .modal-content {
-                margin: 0 16px;
-            }
-
             .app-card-info {
                 min-height: 120px;
             }
 
-            .home-content {
+            .home-content, .profile-content, .upload-content {
                 padding: 0 16px;
             }
 
@@ -637,6 +488,12 @@
                 </svg>
                 Perfil
             </a>
+            <a href="#" onclick="showSection('upload')" id="uploadLink" style="display: none;">
+                <svg viewBox="0 0 24 24">
+                    <path d="M19 7v2.99s-1.99.01-2 0V7h-3s.01-1.99 0-2h3V2h2v3h3v2h-3zm-3 4v10H8V11H6l5-5 5 5h-2z"/>
+                </svg>
+                Subir App
+            </a>
         </nav>
     </aside>
 
@@ -650,79 +507,7 @@
                 </svg>
             </button>
             <div class="logo">UV Store</div>
-            <div class="profile-container">
-                <div class="profile" onclick="toggleMenu()">
-                    <svg viewBox="0 0 24 24">
-                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                    </svg>
-                </div>
-                <div class="profile-menu" id="profileMenu">
-                    <a href="#" id="loginLink" onclick="openModal('loginModal')">Iniciar sesión con UV ID</a>
-                    <a href="#" id="signupLink" onclick="openModal('signupModal')">Crear UV ID</a>
-                    <a href="#" id="uploadLink" onclick="openModal('uploadModal')" style="display: none;">Subir Aplicación</a>
-                    <a href="#" id="logoutLink" onclick="logout()" style="display: none;">Cerrar Sesión</a>
-                </div>
-            </div>
         </nav>
-
-        <div class="modal" id="loginModal">
-            <div class="modal-content">
-                <button class="close" onclick="closeModal('loginModal')">×</button>
-                <h2>Iniciar sesión con UV ID</h2>
-                <form id="loginForm" onsubmit="validateLogin(event)">
-                    <label for="login-email">Correo electrónico</label>
-                    <input type="email" id="login-email" placeholder="tu@correo.com" required>
-                    <div class="error-message" id="login-email-error">Por favor, introduce un correo válido.</div>
-                    <label for="login-password">Contraseña</label>
-                    <input type="password" id="login-password" placeholder="Contraseña" required>
-                    <div class="error-message" id="login-password-error">La contraseña debe tener al menos 6 caracteres.</div>
-                    <button type="submit">Iniciar sesión</button>
-                    <a href="#" class="extra-link">¿Olvidaste tu contraseña?</a>
-                </form>
-            </div>
-        </div>
-
-        <div class="modal" id="signupModal">
-            <div class="modal-content">
-                <button class="close" onclick="closeModal('signupModal')">×</button>
-                <h2>Crear UV ID</h2>
-                <form id="signupForm" onsubmit="validateSignup(event)">
-                    <label for="signup-name">Nombre</label>
-                    <input type="text" id="signup-name" placeholder="Tu nombre" required>
-                    <div class="error-message" id="signup-name-error">El nombre es obligatorio.</div>
-                    <label for="signup-email">Correo electrónico</label>
-                    <input type="email" id="signup-email" placeholder="tu@correo.com" required>
-                    <div class="error-message" id="signup-email-error">Por favor, introduce un correo válido.</div>
-                    <label for="signup-password">Contraseña</label>
-                    <input type="password" id="signup-password" placeholder="Contraseña" required>
-                    <div class="error-message" id="signup-password-error">La contraseña debe tener al menos 6 caracteres.</div>
-                    <button type="submit">Crear cuenta</button>
-                    <p class="terms">Al crear una cuenta, aceptas los <a href="#" class="extra-link">Términos y Condiciones</a>.</p>
-                </form>
-            </div>
-        </div>
-
-        <div class="modal" id="uploadModal">
-            <div class="modal-content">
-                <button class="close" onclick="closeModal('uploadModal')">×</button>
-                <h2>Subir Aplicación</h2>
-                <form id="uploadForm" onsubmit="uploadApp(event)">
-                    <label for="app-name">Nombre</label>
-                    <input type="text" id="app-name" placeholder="Nombre de la app" required>
-                    <div class="error-message" id="app-name-error">El nombre es obligatorio.</div>
-                    <label for="app-description">Descripción</label>
-                    <textarea id="app-description" placeholder="Descripción de la app" required></textarea>
-                    <div class="error-message" id="app-description-error">La descripción es obligatoria.</div>
-                    <label for="app-image">URL de la Imagen</label>
-                    <input type="url" id="app-image" placeholder="https://example.com/image.jpg" required>
-                    <div class="error-message" id="app-image-error">Por favor, introduce una URL válida.</div>
-                    <label for="app-link">Enlace</label>
-                    <input type="url" id="app-link" placeholder="https://example.com" required>
-                    <div class="error-message" id="app-link-error">Por favor, introduce una URL válida.</div>
-                    <button type="submit">Subir</button>
-                </form>
-            </div>
-        </div>
 
         <div class="container">
             <div id="home-section">
@@ -754,8 +539,42 @@
                 </div>
             </div>
             <div id="profile-section" style="display: none;">
-                <h2 class="section-title">Perfil</h2>
-                <p>Administra tu cuenta y preferencias aquí (próximamente).</p>
+                <div class="profile-content">
+                    <div class="card" id="loginCard">
+                        <h3>Iniciar Sesión</h3>
+                        <form id="loginForm" onsubmit="validateLogin(event)">
+                            <label for="login-email">Correo electrónico</label>
+                            <input type="email" id="login-email" placeholder="tu@correo.com" required>
+                            <div class="error-message" id="login-email-error">Por favor, introduce un correo válido.</div>
+                            <label for="login-password">Contraseña</label>
+                            <input type="password" id="login-password" placeholder="Contraseña" required>
+                            <div class="error-message" id="login-password-error">La contraseña debe tener al menos 6 caracteres.</div>
+                            <button type="submit" class="cta-button">Iniciar Sesión</button>
+                            <p class="switch-link"><a href="#" onclick="showSignup()">¿No tienes una cuenta? Regístrate</a></p>
+                        </form>
+                    </div>
+                    <div class="card" id="signupCard" style="display: none;">
+                        <h3>Crear UV ID</h3>
+                        <form id="signupForm" onsubmit="validateSignup(event)">
+                            <label for="signup-name">Nombre</label>
+                            <input type="text" id="signup-name" placeholder="Tu nombre" required>
+                            <div class="error-message" id="signup-name-error">El nombre es obligatorio.</div>
+                            <label for="signup-email">Correo electrónico</label>
+                            <input type="email" id="signup-email" placeholder="tu@correo.com" required>
+                            <div class="error-message" id="signup-email-error">Por favor, introduce un correo válido.</div>
+                            <label for="signup-password">Contraseña</label>
+                            <input type="password" id="signup-password" placeholder="Contraseña" required>
+                            <div class="error-message" id="signup-password-error">La contraseña debe tener al menos 6 caracteres.</div>
+                            <button type="submit" class="cta-button">Crear cuenta</button>
+                            <p class="switch-link"><a href="#" onclick="showLogin()">¿Tienes una cuenta? Inicia Sesión</a></p>
+                        </form>
+                    </div>
+                    <div class="card" id="userCard" style="display: none;">
+                        <h3>Bienvenido, <span id="user-name"></span></h3>
+                        <p>Administra tu cuenta y preferencias.</p>
+                        <button onclick="logout()" class="cta-button">Cerrar Sesión</button>
+                    </div>
+                </div>
             </div>
             <div id="store-section" style="display: none;">
                 <div class="search-container">
@@ -772,6 +591,28 @@
                 <div class="app-grid" id="appGrid"></div>
                 <div class="no-results" id="noResults">No hay aplicaciones subidas aún.</div>
             </div>
+            <div id="upload-section" style="display: none;">
+                <div class="upload-content">
+                    <div class="card">
+                        <h3>Subir Aplicación</h3>
+                        <form id="uploadForm" onsubmit="uploadApp(event)">
+                            <label for="app-name">Nombre</label>
+                            <input type="text" id="app-name" placeholder="Nombre de la app" required>
+                            <div class="error-message" id="app-name-error">El nombre es obligatorio.</div>
+                            <label for="app-description">Descripción</label>
+                            <textarea id="app-description" placeholder="Descripción de la app" required></textarea>
+                            <div class="error-message" id="app-description-error">La descripción es obligatoria.</div>
+                            <label for="app-image">URL de la Imagen</label>
+                            <input type="url" id="app-image" placeholder="https://example.com/image.jpg" required>
+                            <div class="error-message" id="app-image-error">Por favor, introduce una URL válida.</div>
+                            <label for="app-link">Enlace</label>
+                            <input type="url" id="app-link" placeholder="https://example.com" required>
+                            <div class="error-message" id="app-link-error">Por favor, introduce una URL válida.</div>
+                            <button type="submit" class="cta-button">Subir</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <footer>
@@ -781,13 +622,14 @@
 
     <script>
         let token = localStorage.getItem('token');
+        let userName = localStorage.getItem('userName') || '';
         let apps = [];
         const BACKEND_URL = 'https://storebackend-production-f4f7.up.railway.app/api';
 
         // Inicializar app
         document.addEventListener('DOMContentLoaded', () => {
             fetchApps();
-            updateMenu();
+            updateProfile();
             initSidebar();
             showSection('home');
             animateCards();
@@ -843,7 +685,7 @@
         }
 
         function showSection(sectionId) {
-            const sections = ['home', 'profile', 'store'];
+            const sections = ['home', 'profile', 'store', 'upload'];
             sections.forEach(id => {
                 const section = document.getElementById(`${id}-section`);
                 if (section) {
@@ -851,7 +693,7 @@
                 }
             });
 
-            if (sectionId === 'home') {
+            if (sectionId === 'home' || sectionId === 'profile' || sectionId === 'upload') {
                 animateCards();
             }
 
@@ -860,29 +702,19 @@
             }
         }
 
-        function toggleMenu() {
-            const menu = document.getElementById('profileMenu');
-            menu.classList.toggle('active');
+        function showSignup() {
+            document.getElementById('loginCard').style.display = 'none';
+            document.getElementById('signupCard').style.display = 'block';
+            resetForm('signupForm');
+            animateCards();
         }
 
-        function openModal(modalId) {
-            const modal = document.getElementById(modalId);
-            modal.classList.add('active');
-            toggleMenu();
+        function showLogin() {
+            document.getElementById('signupCard').style.display = 'none';
+            document.getElementById('loginCard').style.display = 'block';
+            resetForm('loginForm');
+            animateCards();
         }
-
-        function closeModal(modalId) {
-            const modal = document.getElementById(modalId);
-            modal.classList.remove('active');
-            resetForm(modalId);
-        }
-
-        document.addEventListener('click', (event) => {
-            const profileContainer = document.querySelector('.profile-container');
-            if (!profileContainer.contains(event.target)) {
-                document.getElementById('profileMenu').classList.remove('active');
-            }
-        });
 
         async function validateLogin(event) {
             event.preventDefault();
@@ -920,10 +752,11 @@
                     const data = await response.json();
                     if (data.token) {
                         token = data.token;
+                        userName = email.split('@')[0]; // Simulación de nombre
                         localStorage.setItem('token', token);
-                        updateMenu();
+                        localStorage.setItem('userName', userName);
+                        updateProfile();
                         alert('Inicio de sesión exitoso.');
-                        closeModal('loginModal');
                     } else {
                         alert(data.error || 'Error al iniciar sesión.');
                     }
@@ -978,8 +811,10 @@
                     });
                     const data = await response.json();
                     if (response.ok) {
+                        userName = name;
+                        localStorage.setItem('userName', userName);
                         alert('Cuenta creada exitosamente.');
-                        closeModal('signupModal');
+                        showLogin();
                     } else {
                         document.getElementById('signup-email-error').textContent = data.error || 'Error al crear cuenta.';
                         document.getElementById('signup-email-error').style.display = 'block';
@@ -1040,8 +875,7 @@
             if (valid) {
                 if (!token) {
                     alert('Sesión no iniciada. Por favor, inicia sesión nuevamente.');
-                    openModal('loginModal');
-                    closeModal('uploadModal');
+                    showSection('profile');
                     return;
                 }
 
@@ -1058,15 +892,15 @@
                     if (response.status === 401) {
                         alert('Sesión expirada o token inválido. Por favor, inicia sesión nuevamente.');
                         logout();
-                        openModal('loginModal');
-                        closeModal('uploadModal');
+                        showSection('profile');
                         return;
                     }
 
                     const data = await response.json();
                     if (response.ok) {
                         alert('Aplicación subida exitosamente.');
-                        closeModal('uploadModal');
+                        resetForm('uploadForm');
+                        showSection('store');
                         fetchApps();
                     } else {
                         alert(data.error || 'Error al subir la aplicación.');
@@ -1077,8 +911,8 @@
             }
         }
 
-        function resetForm(modalId) {
-            const form = document.getElementById(`${modalId.replace('Modal', 'Form')}`);
+        function resetForm(formId) {
+            const form = document.getElementById(formId);
             form.reset();
             const errors = form.querySelectorAll('.error-message');
             const inputs = form.querySelectorAll('input, textarea');
@@ -1086,31 +920,36 @@
             inputs.forEach(input => input.classList.remove('error'));
         }
 
-        function updateMenu() {
-            const loginLink = document.getElementById('loginLink');
-            const signupLink = document.getElementById('signupLink');
+        function updateProfile() {
+            const loginCard = document.getElementById('loginCard');
+            const signupCard = document.getElementById('signupCard');
+            const userCard = document.getElementById('userCard');
             const uploadLink = document.getElementById('uploadLink');
-            const logoutLink = document.getElementById('logoutLink');
+            const userNameElement = document.getElementById('user-name');
 
             if (token) {
-                loginLink.style.display = 'none';
-                signupLink.style.display = 'none';
+                loginCard.style.display = 'none';
+                signupCard.style.display = 'none';
+                userCard.style.display = 'block';
                 uploadLink.style.display = 'block';
-                logoutLink.style.display = 'block';
+                userNameElement.textContent = userName || 'Usuario';
+                animateCards();
             } else {
-                loginLink.style.display = 'block';
-                signupLink.style.display = 'block';
+                loginCard.style.display = 'block';
+                signupCard.style.display = 'none';
+                userCard.style.display = 'none';
                 uploadLink.style.display = 'none';
-                logoutLink.style.display = 'none';
             }
         }
 
         function logout() {
             token = null;
+            userName = '';
             localStorage.removeItem('token');
-            updateMenu();
-            toggleMenu();
+            localStorage.removeItem('userName');
+            updateProfile();
             alert('Sesión cerrada.');
+            showSection('profile');
         }
 
         async function fetchApps() {
@@ -1131,7 +970,7 @@
         }
 
         function renderApps() {
-            const appGrid = document.getElementById('appGrid');
+            const appGrid = document.getElementById('app ‘appGrid');
             const noResults = document.getElementById('noResults');
             const query = document.getElementById('searchInput').value.toLowerCase();
             appGrid.innerHTML = '';
